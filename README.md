@@ -19,7 +19,7 @@ Here are the docker-compose built images:
 ### Installation
 First, clone this repository:
 
-$ git clone https://github.com/ali-touil/LEPP-RabbitMQ-ELK.git
+$ git clone https://github.com/TouilAli/lepp-rabbitmq-elk.git
 
 Then, run:
 
