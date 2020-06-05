@@ -4,7 +4,7 @@ This is a complete stack for running Symfony 5 (Last version) into Docker contai
 ### Cluster Architecture
 In this cluster architecture all tiers of the Web application are deployed to a single Docker container.
 
-![Cluster architecture](https://user-images.githubusercontent.com/11296140/83842636-50c03f80-a6fb-11ea-9e42-75ab3ec57be4.png)
+![Cluster architecture](https://user-images.githubusercontent.com/11296140/83843833-bca3a780-a6fd-11ea-8323-cfe6177763bd.png)
 
 ### How it works?
 Here are the docker-compose built images:
