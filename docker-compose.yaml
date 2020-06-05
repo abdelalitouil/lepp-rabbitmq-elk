@@ -1,0 +1,98 @@
+version: "3.7"
+services:
+    db:
+        container_name: db
+        image: postgres:13-alpine
+        ports:
+            - "5432:5432"
+        environment:
+            - POSTGRES_DB=symfony
+            - POSTGRES_PASSWORD=!ChangeMe!
+            - POSTGRES_USER=symfony
+        networks:
+            - db
+    php:
+        container_name: php
+        build: ./php-fpm
+        ports:
+            - "9000:9001"
+        volumes:
+            - ./symfony:/var/www/symfony:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+        depends_on: 
+            - db
+            - elasticsearch
+            - rabbitmq
+        networks:
+            - db
+            - rabbitmq
+            - php
+            - elk_stack
+    nginx:
+        container_name: nginx
+        build: ./nginx
+        ports:
+            - "80:80"
+        depends_on: 
+            - php
+        networks:
+            - php
+        volumes:
+            - ./logs/nginx:/var/log/nginx:cached
+            - ./symfony:/var/www/symfony:cached
+    rabbitmq:
+        container_name: rabbitmq
+        image: rabbitmq:3.7-alpine
+        environment:
+            - RABBITMQ_DEFAULT_USER=rabbitmq
+            - RABBITMQ_DEFAULT_PASS=!ChangeMe!
+            - RABBITMQ_DEFAULT_VHOST=/
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+        labels:
+            NAME: "rabbitmq"
+        volumes:
+            - "./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins"
+        networks:
+            - rabbitmq
+    elasticsearch:
+        container_name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+        environment:
+            discovery.type: "single-node"
+        ports:
+            - "9200:9200"
+        networks:
+            elk_stack:
+                aliases:
+                    - "elasticsearch"
+    logstash:
+        container_name: logstash
+        image: docker.elastic.co/logstash/logstash:7.4.2
+        depends_on: 
+            - elasticsearch
+        volumes:
+            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
+            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
+            - ./logs/symfony:/var/www/symfony/var/log:cached
+            - ./logs/nginx:/var/log/nginx:cached
+        networks:
+            - elk_stack
+    kibana:
+        container_name: kibana
+        depends_on: 
+            - elasticsearch
+        image: docker.elastic.co/kibana/kibana:7.4.2
+        environment:
+            SERVER_NAME: localhost
+            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+        networks:
+            - elk_stack
+        ports:
+            - "81:5601"
+networks:
+    db:
+    php:
+    rabbitmq:
+    elk_stack:
