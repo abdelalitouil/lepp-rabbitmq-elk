@@ -1,4 +1,4 @@
-## LEPP-RabbitMQ-ELK
+## LEPP stack · RabbitMQ · ELK stack
 This is a complete stack for running Symfony 5 (Last version) into Docker containers using docker-compose tool.
 
 ### Cluster Architecture
