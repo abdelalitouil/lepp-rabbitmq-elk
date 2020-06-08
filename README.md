@@ -4,7 +4,7 @@ This is a complete stack for running Symfony 5 (Last version) into Docker contai
 ### Cluster Architecture
 In this cluster architecture all tiers of the Web application are deployed to a single Docker container.
 
-![Cluster architecture](https://user-images.githubusercontent.com/11296140/83843833-bca3a780-a6fd-11ea-8323-cfe6177763bd.png)
+![Cluster architecture](https://user-images.githubusercontent.com/11296140/84067383-433adc00-a9bf-11ea-9009-7c3fd8781497.png)
 
 ### How it works?
 Here are the docker-compose built images:
@@ -19,7 +19,7 @@ Here are the docker-compose built images:
 ### Installation
 First, clone this repository:
 
-$ git clone https://github.com/TouilAli/lepp-rabbitmq-elk.git
+$ git clone https://github.com/ali-touil/lepp-rabbitmq-elk.git
 
 Then, run:
 
@@ -35,10 +35,17 @@ Note : you can rebuild all Docker images by running:
 $ docker-compose up -d --build
 ```
 
-Next, run the migration to add the table to your database:
+
+Next, run the following command to install the dependencies:
 
 ```bash
-$ docker exec php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+$ docker exec php composer install
+```
+
+Finally, run the migration to add the table to your database:
+
+```bash
+$ docker exec php php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 ```
 
 ### Read logs
