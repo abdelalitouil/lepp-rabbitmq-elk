@@ -19,6 +19,22 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function findByTerm($term)
+    {
+        return $this->createQueryBuilder('b')
+            ->orWhere('b.title like :val')
+            ->orWhere('b.summary like :val')
+            ->orWhere('b.author like :val')
+            ->orWhere('b.language like :val')
+            ->orWhere('b.indexation like :val')
+            ->setParameter('val', '%'.$term.'%')
+            ->orderBy('b.title', 'ASC')
+            ->setMaxResults(4000)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Book[] Returns an array of Book objects
     //  */

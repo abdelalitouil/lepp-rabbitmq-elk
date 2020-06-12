@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}search doctrine{% endblock %}
+
+{% block body %}
+    <div class="search-box">
+        <input type="text" id="search" autocomplete="off" placeholder="Search book..." />
+
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Language</th>
+                <th>PublishDate</th>
+                <th>Summary</th>
+                <th>Indexation</th>
+            </thead>
+            <tbody class="result">
+                <tr>
+                    <td colspan="7">Nothing to search</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.search-box input[type="text"]').on("keyup", function(){
+                var inputVal = $(this).val();
+                var resultDropdown = $(".result");
+                resultDropdown.html('<td colspan="7">searching ...</td>');
+                if(inputVal.length){
+                    $.get("{{ path('search_doctrine_json') }}", {term: inputVal}).done(function(data){
+                        if(data.length){
+                            resultDropdown.html('');
+                            $.each(data, function(i, obj) {
+                                resultDropdown.append("<tr>\
+                                    <td>" + obj.id          + "</td>\
+                                    <td>" + obj.title       + "</td>\
+                                    <td>" + obj.author      + "</td>\
+                                    <td>" + obj.language    + "</td>\
+                                    <td>" + obj.date        + "</td>\
+                                    <td>" + obj.summary     + "</td>\
+                                    <td>" + obj.indexation  + "</td>\
+                                </tr>");
+                            });
+                        } else {
+                            resultDropdown.html('<td colspan="7">No result</td>');
+                        }                        
+                    });
+                } else{
+                    resultDropdown.html('<td colspan="7">Nothing to search</td>');
+                }
+            });
+        });
+    </script>
+{% endblock %}

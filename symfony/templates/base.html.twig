@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}" />
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <div class="navbar">
+            <a href="{{ path('index') }}">Home</a>
+            <a href="{{ path('book_index') }}">List of Books</a>
+            <div class="dropdown">
+                <button class="dropbtn">Search book
+                <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-content">
+                <div class="header">
+                    <h2>Searching some Book ?</h2>
+                </div>
+                <div class="row">
+                    <div class="column">
+                    <h3>Simple Searching on DataBase using Doctrine :</h3>
+                    <a href="{{ path('search_doctrine') }}">Search type 1</a>
+                    </div>
+                    <div class="column">
+                    <h3>Searching using Elasticsearch :</h3>
+                    <a href="{{ path('search_elasticsearch') }}">Search type 1</a>
+                    </div>
+                </div>
+                </div>
+            </div> 
+        </div>
         {% block body %}{% endblock %}
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

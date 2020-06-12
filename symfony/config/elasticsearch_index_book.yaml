@@ -1,0 +1,16 @@
+settings:
+    index:
+        # single node, no sharding
+        number_of_shards: 1
+        number_of_replicas: 0
+mappings:
+    book: # Specifying types in requests is deprecated for Elastic 7.*
+        dynamic: false # disable dynamic mapping
+        properties:
+            title: &en_text
+                type: text
+                analyzer: english
+            author: *en_text
+            language: *en_text
+            summary: *en_text
+            indexation: *en_text
