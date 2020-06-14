@@ -23,6 +23,7 @@ services:
             - db
             - elasticsearch
             - rabbitmq
+            # - redis
         networks:
             - db
             - rabbitmq
@@ -91,8 +92,19 @@ services:
     #         - elk_stack
     #     ports:
     #         - "81:5601"
+    # redis:
+    #     container_name: redis
+    #     image: "redis:alpine"
+    #     hostname: redis
+    #     ports:
+    #         - "6379:6379"
+    #     volumes:
+    #         - ./redis/data:/data:cached
+    #     networks:
+    #         - redis
 networks:
     db:
     php:
     rabbitmq:
     elk_stack:
+    # redis:
