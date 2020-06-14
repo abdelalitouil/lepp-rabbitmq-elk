@@ -23,6 +23,7 @@ services:
             - db
             - elasticsearch
             - rabbitmq
+            # - redis
         networks:
             - db
             - rabbitmq
@@ -58,7 +59,7 @@ services:
             - rabbitmq
     elasticsearch:
         container_name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.4.2
+        image: docker.elastic.co/elasticsearch/elasticsearch:6.0.1
         environment:
             discovery.type: "single-node"
         ports:
@@ -67,32 +68,43 @@ services:
             elk_stack:
                 aliases:
                     - "elasticsearch"
-    logstash:
-        container_name: logstash
-        image: docker.elastic.co/logstash/logstash:7.4.2
-        depends_on: 
-            - elasticsearch
-        volumes:
-            - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
-            - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
-            - ./logs/symfony:/var/www/symfony/var/log:cached
-            - ./logs/nginx:/var/log/nginx:cached
-        networks:
-            - elk_stack
-    kibana:
-        container_name: kibana
-        depends_on: 
-            - elasticsearch
-        image: docker.elastic.co/kibana/kibana:7.4.2
-        environment:
-            SERVER_NAME: localhost
-            ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-        networks:
-            - elk_stack
-        ports:
-            - "81:5601"
+    # logstash:
+    #     container_name: logstash
+    #     image: docker.elastic.co/logstash/logstash:7.4.2
+    #     depends_on: 
+    #         - elasticsearch
+    #     volumes:
+    #         - ./elk/logstash/pipelines.yml:/usr/share/logstash/config/pipelines.yml:cached
+    #         - ./elk/logstash/conf.d:/etc/logstash/conf.d:cached
+    #         - ./logs/symfony:/var/www/symfony/var/log:cached
+    #         - ./logs/nginx:/var/log/nginx:cached
+    #     networks:
+    #         - elk_stack
+    # kibana:
+    #     container_name: kibana
+    #     depends_on: 
+    #         - elasticsearch
+    #     image: docker.elastic.co/kibana/kibana:7.4.2
+    #     environment:
+    #         SERVER_NAME: localhost
+    #         ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+    #     networks:
+    #         - elk_stack
+    #     ports:
+    #         - "81:5601"
+    # redis:
+    #     container_name: redis
+    #     image: "redis:alpine"
+    #     hostname: redis
+    #     ports:
+    #         - "6379:6379"
+    #     volumes:
+    #         - ./redis/data:/data:cached
+    #     networks:
+    #         - redis
 networks:
     db:
     php:
     rabbitmq:
     elk_stack:
+    # redis:

@@ -34,7 +34,8 @@ RUN apk add --update --no-cache \
     make \
     curl\
     composer\
-    supervisor
+    supervisor\
+    redis
 
 COPY symfony.ini /etc/php7/conf.d/
 COPY symfony.ini /etc/php7/cli/conf.d/

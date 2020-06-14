@@ -20,6 +20,9 @@
     "doctrine/common": {
         "version": "2.13.2"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.4.3"
+    },
     "doctrine/dbal": {
         "version": "2.10.2"
     },
@@ -36,6 +39,18 @@
             "config/packages/prod/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -84,11 +99,14 @@
     "elasticsearch/elasticsearch": {
         "version": "v7.7.0"
     },
-    "ezimuel/guzzlestreams": {
-        "version": "3.0.1"
+    "fzaninotto/faker": {
+        "version": "v1.9.1"
     },
-    "ezimuel/ringphp": {
-        "version": "1.1.2"
+    "guzzlehttp/ringphp": {
+        "version": "1.1.1"
+    },
+    "guzzlehttp/streams": {
+        "version": "3.0.0"
     },
     "monolog/monolog": {
         "version": "2.1.0"
@@ -131,6 +149,9 @@
     },
     "react/promise": {
         "version": "v2.8.0"
+    },
+    "ruflin/elastica": {
+        "version": "6.1.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
