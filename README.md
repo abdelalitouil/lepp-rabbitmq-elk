@@ -20,7 +20,7 @@ Here are the docker-compose built images:
 First, clone this repository:
 
 ```bash
-$ git clone https://github.com/ali-touil/lepp-rabbitmq-elk.git
+$ git clone https://github.com/abdelalitouil/lepp-rabbitmq-elk.git
 ```
 
 Then, run:
