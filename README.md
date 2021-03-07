@@ -11,7 +11,7 @@ Here are the docker-compose built images:
 - db: This is the PostgreSQL database container (can be changed to MySQL or whatever in docker-compose.yml file),
 - php: This is the PHP-FPM container including the application volume mounted on,
 - nginx: This is the Nginx Webserver container in which php volumes are mounted too.
-- rabbitmq: This is the RabbitMQ container that transmits the application message to the work (Task: indexation of the entity Book::class in Elasticsearch).
+- rabbitmq: This is the RabbitMQ container that transmits the application message to the workers (Task: indexation of the entity Book::class in Elasticsearch).
 - elasticsearch: This is the Elasticsearch server used to store our Web server and application logs,
 - logstash: This is the Logstash tool from Elastic Stack that allows to read logs and send them into our Elasticsearch server,
 - kibana: This is the Kibana UI that is used to render logs and create beautiful dashboards.
